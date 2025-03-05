@@ -5,6 +5,7 @@ import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,8 @@ import java.io.File
 
 class TesActivity : AppCompatActivity() {
     private lateinit var btnSelectFile: Button
+    private lateinit var tvTes: TextView
+
     private var imageFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,10 @@ class TesActivity : AppCompatActivity() {
         }
 
         btnSelectFile = findViewById(R.id.btnSelectFile)
+        tvTes = findViewById(R.id.tvTes)
+
+        tvTes.text = unhex("58g888786858483",82)
+
         btnSelectFile.setOnClickListener {
             ImagePicker.with(this)
                 .crop()
@@ -50,4 +57,27 @@ class TesActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun unhex(str: String = "", code: Int = 0): String {
+        val parts = str.split("g") // Memisahkan string berdasarkan karakter 'g'
+        if (parts.size < 2) return "" // Validasi input
+
+        val head = parts[0].toInt(16) - code // Konversi bagian pertama ke bilangan desimal
+        val content = parts[1] // Bagian kedua adalah konten
+
+        if (head == content.length / 2) {
+            var result = StringBuilder()
+
+            for (i in 0 until head) {
+                val hexPair = content.substring(i * 2, (i * 2) + 2) // Ambil 2 karakter heksadesimal
+                val charValue = hexPair.toInt(16) - code // Konversi ke karakter dengan pengurangan kode
+                result.append(charValue.toChar())
+            }
+
+            return result.reverse().toString() // Balikkan hasilnya
+        }
+
+        return ""
+    }
+
 }

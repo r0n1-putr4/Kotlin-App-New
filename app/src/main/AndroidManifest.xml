@@ -23,11 +23,11 @@
             android:exported="false" />
 
         <activity
-            android:name=".TesActivity"
+            android:name=".BeritaActivity"
             android:exported="false" />
 
         <activity
-            android:name=".BeritaActivity"
+            android:name=".TesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
